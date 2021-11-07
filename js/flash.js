@@ -86,8 +86,6 @@ function check(){
                     // update();
                     console.log("AdobeFlash has installed,now u can happy");
                     if(a_type == 0){
-                        console.log("页面刷新");
-                        document.location.reload();
                     }else if(a_type == 1){
                         // 判断是否设置了指定页面
                         if(bc_link.length != 0 ){
