@@ -50,7 +50,7 @@ function requestss() {
     console.log("requestss");
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
-       if(xhr.readyState == 4){
+       if(xhr.readyState == 4){
         if((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
             if(xhr.responseText == l_res){ // 用于判断是否为本地安装的服务
                 console.log("success");
@@ -74,7 +74,7 @@ function requestss() {
             }
         } else {
         }
-       }
+       }
     };
     xhr.open("GET", l_url, true);
     xhr.send(null);
